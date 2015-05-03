@@ -1,0 +1,17 @@
+{
+    "contents" : "<!DOCTYPE html>\n<html>\n<head>\n<meta charset=utf-8 />\n<title>{{title}}</title>\n<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />\n<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.js'></script>\n<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.9/mapbox.css' rel='stylesheet' />\n<style>\n  body { margin:0; padding:0; }\n  #map { position:absolute; top:0; bottom:0; width:100%; }\n</style>\n</head>\n<body>\n<div id='map'></div>\n<script>\nL.mapbox.accessToken = 'pk.eyJ1Ijoia2FydGhpa3JhbSIsImEiOiJRNWIzX0QwIn0.YgjrBuNkfo99TrVDLTXWPQ';\n// var geojson = [\n//   {\n//     \"type\": \"Feature\",\n//     \"geometry\": {\n//       \"type\": \"Point\",\n//       \"coordinates\": [{{longitude}}, {{latitude}}]\n//     },\n//     \"properties\": {\n//       \"title\": \"{{scientific_name}}\",\n//       \"description\": \"Collected on {{begin.date}}\",\n//       \"marker-color\": \"{{marker.color}}\",\n//       \"marker-size\": \"medium\",\n//     }\n//   },\n// ];\nvar geojson = [\n  {\n    \"type\": \"Feature\",\n    \"geometry\": {\n      \"type\": \"Point\",\n      \"coordinates\": [-114.5669, 33.02164]\n    },\n    \"properties\": {\n      \"title\": \"Vulpes macrotis arsipus\",\n      \"description\": \"Collected on 1935-03-23\",\n      \"marker-color\": \"#429DB4\",\n      \"marker-size\": \"medium\",\n    }\n  },\n];\nL.mapbox.map('map', 'examples.map-i86nkdio')\n  .setView([34.5, -94.16], 5)\n  .featureLayer.setGeoJSON(geojson);\n</script>\n</body>\n</html>\n",
+    "created" : 1430631643964.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3148215029",
+    "id" : "4276961D",
+    "lastKnownWriteTime" : 1430632695,
+    "path" : "~/Desktop/mapbox/index.html",
+    "project_path" : "index.html",
+    "properties" : {
+    },
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "type" : "html"
+}

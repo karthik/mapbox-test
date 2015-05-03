@@ -1,0 +1,17 @@
+{
+    "contents" : "library(ecoengine)\nlibrary(dplyr)\nlibrary(wesanderson)\n\n# This is an example query that gets 1000 observations\nx <- ee_observations(genus = \"vulpes\", georeferenced = TRUE)\n# Get unique species so we can add colors\nunique_species <- x$data %>% group_by(scientific_name) %>% summarise(n = n()) %>% arrange(desc(n))\npal <- wes_palette(\"Zissou\", 100, type = \"continuous\")\ncolors <- pal[1:nrow(unique_species)]\nunique_species$marker_color <- colors\n\nfiltered_df <- left_join(x$data, unique_species, by = \"scientific_name\")\nfiltered_df <- filtered_df %>% select(scientific_name, begin_date, marker_color, latitude, longitude)\n\nhead(filtered_df)\n\n\n",
+    "created" : 1430631441216.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2651939848",
+    "id" : "D9582BB5",
+    "lastKnownWriteTime" : 1430631950,
+    "path" : "~/Desktop/mapbox/code.R",
+    "project_path" : "code.R",
+    "properties" : {
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "type" : "r_source"
+}
