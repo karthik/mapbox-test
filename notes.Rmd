@@ -36,6 +36,6 @@ filtered_df <- filtered_df %>% select(scientific_name, begin_date, marker_color,
 # Example Data
 
 ```{r, table, results = 'asis'}
-pandoc.table(head(filtered_df))
+pandoc.table(head(filtered_df), style = "rmarkdown")
 ```
 
