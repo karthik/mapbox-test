@@ -12,7 +12,12 @@ unique_species <- df %>%
 pal <- wes_palette("Zissou", 100, type = "continuous")
 colors <- pal[1:nrow(unique_species)]
 # I need some variation here, goddammit
+if(nrow(unique_species) > 5) {
 colors[1:5] <- c("#c0392b","#27ae60", "#f1c40f", "#3498db", "#3498db")
+} else {
+opts <- c("#c0392b","#27ae60", "#f1c40f", "#3498db", "#3498db")
+colors[1:nrow(unique_species)] <- opts[1:nrow(unique_species)]
+}
 unique_species$marker_color <- colors
 
 # Remove all the extra fields and only keep what goes in the geoJSON
@@ -21,6 +26,7 @@ filtered_df <- filtered_df %>%
 				select("title" = scientific_name,
 					"description" = begin_date,
 					"marker-color" = marker_color,  # THis is for mapbox
+					"url" = url,
 					latitude, longitude)
 filtered_df$`marker-size` <- "medium"
 
@@ -41,6 +47,7 @@ browseURL('index.html')
 ee_observations(genus = "Lynx", georeferenced = TRUE) %>% ee_map2
 
 
+loons <- ee_observations(scientific_name = "Gavia immer", georeferenced = TRUE)
 
-
+loons %>% ee_map2
 
