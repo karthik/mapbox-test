@@ -14,5 +14,5 @@ filtered_df <- left_join(x$data, unique_species, by = "scientific_name")
 filtered_df <- filtered_df %>% select(scientific_name, begin_date, marker_color, latitude, longitude)
 
 head(filtered_df)
-
-
+library(geojsonio)
+geojson_write(filtered_df, lat = "latitude", lon = "longitude", file = "points.geojson")
