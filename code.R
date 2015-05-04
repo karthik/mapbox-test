@@ -15,12 +15,12 @@ unique_species$marker_color <- colors
 # Remove all the extra fields and only keep what goes in the geoJSON
 filtered_df <- left_join(df, unique_species, by = "scientific_name")
 filtered_df <- filtered_df %>%
-				select("title" = scientific_name,
-					"description" = begin_date,
-					"marker-color" = marker_color,  # THis is for mapbox
-					"url" = url,
-					latitude,
-					longitude)
+  select("title" = scientific_name,
+  	"description" = begin_date,
+  	"marker-color" = marker_color,  # THis is for mapbox
+  	 "url" = url,
+  	 latitude,
+  	 longitude)
 # Soon I should add other mapbox options here
 filtered_df$`marker-size` <- "small"
 filtered_df <- filtered_df %>% mutate(description = sprintf("Collected on %s", description))
