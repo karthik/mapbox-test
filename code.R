@@ -13,10 +13,11 @@ unique_species <- df %>%
 count(scientific_name) %>%
 arrange(desc(n))
 
+# Colors
+# Now I realize this is janky. It wont work for large # of species
+# This needs a redo
 pal <- wes_palette("Zissou", 100, type = "continuous")
 colors <- pal[1:nrow(unique_species)]
-
-# I need some variation here, goddammit
 opts <-c("#FF0000", "#EDD000", "#009BB4", "#CAB19A", "#3A224A")
 if(nrow(unique_species) > 5) {
   colors[1:5] <- opts[1:5]
@@ -25,6 +26,7 @@ colors[1:nrow(unique_species)] <- opts[1:nrow(unique_species)]
 }
 
 unique_species$marker_color <- colors
+# end colors ------------------------------------------------
 
 
 # Remove all the extra fields and only keep what goes in the geoJSON
@@ -57,3 +59,5 @@ loons <- ee_observations(scientific_name = "Gavia immer", georeferenced = TRUE)
 lynx %>% ee_map2
 loons %>% ee_map2
 
+aves <- ee_observations(clss = "aves", exclude = "remote_resource", georeferenced = TRUE)
+aves %>% ee_map2
