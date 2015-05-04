@@ -9,6 +9,22 @@ output: html_document
 ```r
 library(ecoengine)
 library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+## 
+## The following object is masked from 'package:stats':
+## 
+##     filter
+## 
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
 library(wesanderson)
 library(pander)
 ```
@@ -20,12 +36,21 @@ library(pander)
 # This is an example query that gets 1000 observations
 x <- ee_observations(genus = "vulpes", georeferenced = TRUE, quiet = TRUE, progress = FALSE)
 # Get unique species so we can add colors
-unique_species <- x$data %>% group_by(scientific_name) %>% summarise(n = n()) %>% arrange(desc(n))
+unique_species <- x$data %>% 
+  count(scientific_name) %>% 
+  arrange(desc(n))
+
 pal <- wes_palette("Zissou", 100, type = "continuous")
 colors <- pal[1:nrow(unique_species)]
 unique_species$marker_color <- colors
+
 filtered_df <- left_join(x$data, unique_species, by = "scientific_name")
-filtered_df <- filtered_df %>% select(scientific_name, begin_date, marker_color, latitude, longitude)
+filtered_df <- filtered_df %>% 
+select(scientific_name, 
+	   begin_date, 
+	   marker_color, 
+	   latitude, 
+	   longitude)
 ```
 
 # Example Data
