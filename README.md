@@ -25,8 +25,8 @@ c) I've got a very ugly set up to put everything together.
 
 ## Bottlenecks
 
-* `geojsonio` replaces `-` with `.` (Currently being cleaned by an ugly `sed`)
-* templating also happens with an ugly system cat.
+* ~~`geojsonio` replaces `-` with `.` (Currently being cleaned by an ugly `sed`)~~ Fixed this by using `leafletR::toGeoJSON`.  
+* templating also happens with an ugly system `cat`.
 * Also map is randomly centered. Center map based on the lat/long based on the coords in file. 
 
 
