@@ -44,13 +44,14 @@ file.remove(c('f1.geojson', 'f2.geojson', 'points.geojson'))
 browseURL('index.html')
 }
 
-# Other examples
+# Some examples
 
-z1 <- ee_observations(genus = "Lynx", georeferenced = TRUE)
-
-
+# Everyone's gotta like a lynx
+lynx <- ee_observations(genus = "Lynx", georeferenced = TRUE)
+# We've got lots of loons too!
 loons <- ee_observations(scientific_name = "Gavia immer", georeferenced = TRUE)
 
-z1 %>% ee_map2
+# pipe them into maps
+lynx %>% ee_map2
 loons %>% ee_map2
 
