@@ -1,6 +1,7 @@
 library(ecoengine)
 library(dplyr)
 library(wesanderson)
+library(leafletR)
 
 # SUPER JANKY EMBARRASING MAP FUNCTION
 # REPLACEMENT FOR ee_map()
@@ -17,7 +18,12 @@ colors <- pal[1:nrow(unique_species)]
 
 # I need some variation here, goddammit
 opts <-c("#FF0000", "#EDD000", "#009BB4", "#CAB19A", "#3A224A")
+if(nrow(unique_species) > 5) {
+  colors[1:5] <- opts[1:5]
+} else {
 colors[1:nrow(unique_species)] <- opts[1:nrow(unique_species)]
+}
+
 unique_species$marker_color <- colors
 
 
@@ -28,19 +34,15 @@ filtered_df <- filtered_df %>%
 					"description" = begin_date,
 					"marker-color" = marker_color,  # THis is for mapbox
 					"url" = url,
-					latitude, 
+					latitude,
 					longitude)
 # Soon I should add other mapbox options here
 filtered_df$`marker-size` <- "small"
-
-# Why does geojson_write change marker-color to marker.color?
-geojsonio::geojson_write(filtered_df, lat = "latitude", lon = "longitude", file = "points.geojson")
-# Which forces me to have this ugly system sed. :(
-system("sed 's/marker.color/marker-color/' points.geojson > f1.geojson")
-system("sed 's/marker.size/marker-size/' f1.geojson > f2.geojson")
+filtered_df <- filtered_df %>% mutate(description = sprintf("Collected on %s", description))
+pos <- c(which(names(filtered_df) == "latitude"), which(names(filtered_df) == "longitude"))
+leafletR::toGeoJSON(filtered_df, lat.lon = pos, name = "points", overwrite = TRUE)
 # How can I easily cat files together without too many \n?
-system("cat index0.html f2.geojson index1.html > index.html")
-file.remove(c('f1.geojson', 'f2.geojson', 'points.geojson'))
+system("cat index0.html points.geojson index1.html > index.html")
 browseURL('index.html')
 }
 
