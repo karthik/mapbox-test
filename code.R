@@ -1,14 +1,13 @@
 library(ecoengine)
 library(dplyr)
 
-# Super janky and embarassing replacement
-# REPLACEMENT FOR ee_map()
+# Super janky and embarassing replacement for ee_map()
 ee_map2 <- function(eco) {
 df <- eco$data
 unique_species <- df %>%
 count(scientific_name) %>%
 arrange(desc(n))
-# _ Set up colors ___
+# -----------------> Set up colors 
 cols <- colorRampPalette(RColorBrewer::brewer.pal(11, "Spectral"))
 colors <- cols(nrow(unique_species))
 unique_species$marker_color <- colors
@@ -23,6 +22,7 @@ filtered_df <- filtered_df %>%
   	 longitude)
 # Soon I should add other mapbox options here
 filtered_df$`marker-size` <- "small"
+
 filtered_df <- filtered_df %>% mutate(description = sprintf("Collected on %s", description))
 pos <- c(which(names(filtered_df) == "latitude"), which(names(filtered_df) == "longitude"))
 leafletR::toGeoJSON(filtered_df, lat.lon = pos, name = "points", overwrite = TRUE)
